@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ object.title }}{% endblock %}
+{% block contents %}
+
+<div class="">
+  <div class="">
+	<h1 class="nh1">{{ object.title | linebreaks }}</h1>
+		<p class="date">{{ object.created_at | date:"Y/n/j H:i" }}</p>
+		
+	<p class="c">カテゴリー：<a href="/category/{{ object.category }}">{{ object.get_category_display}}</a></p>
+    <p class="honbun">{{ object.text }}</p>
+		
+		<div class="boxx">
+	<p class="">{{ object.ans1 }}</p>
+			<p class="hyounum">投票数:{{ object.ans1_num  }}</p>
+		{% if user.is_authenticated %}
+		 <form action="{% url 'timeline:good1' object.id %}" method="post">
+        {% csrf_token %}
+				<button type="submit" name="good1" value="投票" class="te">投票</button>
+    </form>
+		{% endif %}
+			</div>
+		
+		<div class="boxx">
+	<p class="">{{ object.ans2 }}</p>
+			<p class="hyounum">投票数:{{ object.ans2_num  }}</p>
+		{% if user.is_authenticated %}
+		<form action="{% url 'timeline:good2' object.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="good2" value="投票" class="te">投票</button>
+    </form>
+		{% endif %}
+			</div>
+	{% if object.ans3 is not None %}
+		<div class="boxx">
+		<p class="">{{ object.ans3 }}</p>
+		<p class="hyounum">投票数:{{ object.ans3_num  }}</p>
+			{% if user.is_authenticated %}
+		<form action="{% url 'timeline:good3' object.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="good3" value="投票" class="te">投票</button>
+    </form>
+		{% endif %}
+			</div>
+		{% endif %}
+		{% if object.ans4 is not None %}
+			<div class="boxx">
+		<p class="">{{ object.ans4 }}</p>
+		<p class="hyounum">投票数:{{ object.ans4_num }}</p>
+			{% if user.is_authenticated %}
+		<form action="{% url 'timeline:good4' object.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="good4" value="投票" class="te">投票</button>
+			</form>
+		{% endif %}
+			</div>
+		{% endif %}
+  </div>
+  {% if object.post_photo %}
+  <img class="" src="{{ object.post_photo.url }}" alt="Card image cap">
+  {% endif %}
+	{% if object.author.id == user.id %}
+    <form method="post" action="{% url 'timeline:delete' object.id %}" class="">
+      {% csrf_token %}
+      <button class="" type="submit" onclick='return confirm("この質問を削除しますか？");'>
+        この質問を削除
+      </button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
+

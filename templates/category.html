@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{cat}}{% endblock %}
+{% block contents %}
+
+
+<h1 class="nh1">{{cat}}</h1>
+
+
+{% for post in object_list %}
+<div class="">
+  <div class="">
+		<p class="date">{{ post.created_at | date:"Y/n/j H:i" }}</p>
+		<a href="{% url 'timeline:q' post.id %}" class="ti">{{ post.title | linebreaks }}</a>
+		<p class="tokosya">質問者：{{ post.author.username }}</p>
+  </div>
+</div>
+<hr>
+{% endfor %}
+
+{% endblock %}
+

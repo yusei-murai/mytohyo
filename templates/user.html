@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block contents %}
+
+<h1 class="nh1">{{ user.username }}の質問</h1>
+{% for post in object_list %}
+<div class="">
+  <div class="">
+		 {% if post.author.id == user.id %}
+		<p class="date">{{ post.created_at | date:"Y/n/j H:i" }}</p>
+			<p class="c">
+カテゴリー：<a href="/category/{{ post.category }}">{{ post.get_category_display}}</a>
+    </p>
+		<a href="{% url 'timeline:q' post.id %}" class="ti">{{ post.title | linebreaks }}</a>
+    <form method="post" action="{% url 'timeline:delete' post.id %}" class="">
+      {% csrf_token %}
+      <button class="" type="submit" onclick='return confirm("この質問を削除しますか？");'>
+        この質問を削除
+      </button>
+    </form>
+  </div>
+		<hr>
+	 {% endif %}
+		
+</div>
+
+{% endfor %}
+
+{% endblock %}

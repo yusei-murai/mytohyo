@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}お問い合わせ{% endblock %}
+{% block contents %}
+<h1 class="nh1">ご意見・お問い合わせ</h1>
+ <form action="{% url 'contact:contact_form' %}" method="post">
+        {% csrf_token %}
+	 <div class="field">
+	{{ form.subject.errors }}
+		{{ form.subject.label_tag }}<br>
+	{{ form.subject |add_class:"t"}}<br>
+	{{ form.sender.errors }}
+	{{ form.sender.label_tag }}<br>
+	{{form.sender|add_class:"t"}}<br>
+	{{ form.message.errors }}
+	{{ form.message.label_tag }}<br>
+	{{form.message|add_class:"tt"}}<br>
+	{{ form.myself.errors }}
+	{{ form.myself.label_tag }}<br>
+	{{form.myself}}
+		</div>
+        <button type="submit">送信</button>
+    </form>
+{% endblock %}

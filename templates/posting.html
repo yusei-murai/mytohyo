@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}新規質問{% endblock %}
+{% block contents %}
+
+<h1 class="nh1">新規質問</h1>
+          <form method="post" action="{% url 'timeline:create' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+			<div>
+		<label>質問タイトル</label>
+		<aside>[必須]</aside>
+              <textarea name="title" rows="1" placeholder="タイトル(20字以内)" maxlength='20' class="t" required></textarea>
+            </div>
+	<div><label>カテゴリー</label>
+		<aside>[必須]</aside>
+						  <select name="category" required>
+			<option value="" hidden>--</option>
+						<option value="hobby">趣味</option>
+    <option value="life">生活・暮らし</option>
+							<option value="beauty">美容・健康</option>
+    <option value="human">恋愛・人間関係</option>
+							<option value="child">子育て</option>
+    <option value="internet">インターネット</option>
+							<option value="kaden">家電</option>
+    <option value="computer">コンピュータ</option>
+							<option value="academic">学問・サイエンス</option>
+    <option value="business">ビジネス・経済・お金</option>
+							 <option value="news">ニュース・政治</option>
+							<option value="carrer">キャリア</option>
+    <option value="trip">旅行</option>
+							<option value="sports">スポーツ</option>
+    <option value="other">その他</option>
+						</select>
+            </div>
+            <div>
+		<label>詳しい内容</label><br>
+              <textarea name="text" rows="3" placeholder="詳しい内容を投稿してください" class="tt"></textarea>
+            </div>
+				<div>
+		<label>選択肢１</label>
+		<aside>[必須]</aside>
+              <textarea name="ans1" rows="1" placeholder="選択肢１(30字以内)" maxlength='30' class="t" required></textarea>
+            </div>
+			<div>
+		<label>選択肢２</label>
+		<aside>[必須]</aside>
+              <textarea name="ans2" rows="1" placeholder="選択肢２(30字以内)" maxlength='30' class="t" required></textarea>
+            </div>
+					<div>
+		<label>選択肢３</label><br>
+              <textarea name="ans3" rows="1" maxlength='30' placeholder="選択肢３(30字以内)" class="t" ></textarea>
+            </div>
+					<div>
+		<label>選択肢４</label><br>
+              <textarea name="ans4" rows="1" maxlength='30' placeholder="選択肢４(30字以内)" class="t" ></textarea>
+            </div>
+            <div>
+              <label for="file">画像アップロード</label>
+              <input type="file" name="photo">
+            </div>
+            <button class="" type="submit">投稿</button>
+          </form>
+
+{% endblock %}
+
